@@ -1,0 +1,20 @@
+Explain the patterns in the telemetry window using the following key concepts for a 5G RAN system alongside common statistical metrics. Give an explanation for each takeaway.
+
+Here are the concepts:
+    {concepts}
+
+Here is the telemetry window to identify patterns for. Give your response as the answers to the following blanks.
+    State:
+        {state_data}
+
+    Explanation:
+        Radio channel quality: Initially starts off with (a/an) _____ pattern, as observed from features SINR, RSRP, CQI. In the middle, it exhibits (a/an) _____ to (a/an) _____ pattern, as evident from features MCS, BLER. In the end, it exhibits (a/an) _____ to (a/an) _____ pattern, based on features throughput, PRB. Overall, the trend is _____, indicating the presence of _____ conditions.
+
+        Compute and thread execution: Initially starts off with (a/an) _____ pattern, as observed from features pdcp_worker_0 runtime, CPU utilization per core. In the middle, it exhibits (a/an) _____ to (a/an) _____ pattern, as evident from features TxCtrl runtime, scheduling latency. In the end, it exhibits (a/an) _____ to (a/an) _____ pattern, based on features thread affinity, tail latency. Overall, the trend is _____, indicating the presence of _____ conditions.
+
+        Fronthaul transport health: Initially starts off with (a/an) _____ pattern, as observed from features FH packet loss, FH latency. In the middle, it exhibits (a/an) _____ to (a/an) _____ pattern, as evident from features FH bandwidth utilization, eCPRI loss rate. In the end, it exhibits (a/an) _____ to (a/an) _____ pattern, based on features DU-RU port utilization. Overall, the trend is _____, indicating the presence of _____ conditions.
+
+        Cross-layer interaction: Initially starts off with (a/an) _____ pattern, as observed from the coupling between radio and platform features. In the middle, it exhibits (a/an) _____ to (a/an) _____ pattern, as evident from the relationship between FH metrics and radio KPI degradation. In the end, it exhibits (a/an) _____ to (a/an) _____ pattern, based on whether anomalies are isolated to one layer or span multiple layers. Overall, the trend is _____, indicating the presence of _____ conditions.
+
+        Altogether, the patterns in the features indicate radio, compute, and fronthaul transport conditions. This correlates with the key concept of _____, _____, _____, _____, and _____.
+

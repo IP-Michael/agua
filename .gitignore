@@ -164,6 +164,13 @@ abr/trace_store/*/
 lucid_ddos/data*/*/
 lucid_ddos/cic2017/*
 lucid_ddos/dos2017/*
+anomaly_detection/data/states/
+anomaly_detection/data/test_states/
+anomaly_detection/data/states_normalized/
+anomaly_detection/data/test_states_normalized/
+anomaly_detection/data/input_descriptions/
+anomaly_detection/data/input_embeddings/
+anomaly_detection/data/concept_embeddings/
 *Zone.Identifier
 .github/
 .vscode/

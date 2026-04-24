@@ -1,24 +1,27 @@
-from openai import OpenAI
+from sentence_transformers import SentenceTransformer
 import numpy as np
 from tqdm.auto import tqdm
 import re
 from sklearn.metrics.pairwise import cosine_similarity
 
+_model_cache: dict = {}
 
-def get_embedding(text: str, client: OpenAI, model: str) -> np.ndarray:
-    """Return embedding vector for given ``text`` using specified model.
 
-    Performs light normalization (remove tabs, asterisks, dashes, newlines)
-    before requesting an embedding from the OpenAI API.
+def _load_model(model_name: str) -> SentenceTransformer:
+    if model_name not in _model_cache:
+        _model_cache[model_name] = SentenceTransformer(model_name)
+    return _model_cache[model_name]
+
+
+def get_embedding(text: str, model: str) -> np.ndarray:
+    """Return embedding vector for given ``text`` using a sentence-transformers model.
 
     Parameters
     ----------
     text : str
         Input text to embed.
-    client : OpenAI
-        Active OpenAI client instance.
     model : str
-        Embedding model identifier.
+        Sentence-transformers model identifier (e.g. ``"BAAI/bge-m3"``).
 
     Returns
     -------
@@ -28,9 +31,9 @@ def get_embedding(text: str, client: OpenAI, model: str) -> np.ndarray:
     pattern = r"[\t*-]"
     text = re.sub(pattern=pattern, repl="", string=text)
     text = text.replace("\n", " ")
-    response = client.embeddings.create(input=[text], model=model)
-    embed = response.data[0].embedding
-    return np.array(embed, dtype=np.float64, copy=True)
+    st_model = _load_model(model)
+    emb = st_model.encode(text, normalize_embeddings=True)
+    return np.array(emb, dtype=np.float64, copy=True)
 
 
 def save_sample_embeddings(desc_path, embed_path, doc_embedding_model: str) -> None:
@@ -46,9 +49,8 @@ def save_sample_embeddings(desc_path, embed_path, doc_embedding_model: str) -> N
     embed_path : PathLike
         Output directory for ``.npz`` embedding files.
     doc_embedding_model : str
-        Embedding model name used for description texts.
+        Sentence-transformers model name used for description texts.
     """
-    client = OpenAI()
     files = list(desc_path.glob("*.txt"))
     for file in tqdm(files, desc="Querying embedding for sample", leave=True):
         with open(file, "r") as f:
@@ -59,7 +61,7 @@ def save_sample_embeddings(desc_path, embed_path, doc_embedding_model: str) -> N
         embedding_file = embedding_file.resolve()
         embedding_file.parent.mkdir(parents=True, exist_ok=True)
         if not embedding_file.exists():
-            embedding = get_embedding(text=filtered_description, client=client, model=doc_embedding_model)
+            embedding = get_embedding(text=filtered_description, model=doc_embedding_model)
             np.savez(embedding_file, embedding=embedding)
 
 
@@ -73,9 +75,8 @@ def save_concept_embeddings(concepts_file, concept_embedding_save_path, query_em
     concept_embedding_save_path : PathLike
         Output directory for concept embedding ``.npz`` files.
     query_embedding_model : str
-        Embedding model name used for concepts.
+        Sentence-transformers model name used for concepts.
     """
-    client = OpenAI()
     concepts = []
     with open(concepts_file, "r") as f:
         for line in f:
@@ -90,7 +91,7 @@ def save_concept_embeddings(concepts_file, concept_embedding_save_path, query_em
         embedding_file = concept_embedding_save_path / f"concept_{concept_id:04d}.npz"
         embedding_file.parent.mkdir(parents=True, exist_ok=True)
         if not embedding_file.exists():
-            embedding = get_embedding(text=concept, client=client, model=query_embedding_model)
+            embedding = get_embedding(text=concept, model=query_embedding_model)
             np.savez(embedding_file, embedding=embedding)
 
 

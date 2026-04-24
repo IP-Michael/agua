@@ -51,7 +51,13 @@ def _embed_paths_and_extractor():
         text_embedding = np.load(embed_path / file.name)["embedding"]
         return state_embedding, text_embedding
 
-    return embed_path, GC.split_state_files, extractor
+    def split_state_files_filtered():
+        train_files, val_files = GC.split_state_files()
+        train_files = [f for f in train_files if (embed_path / f.name).exists()]
+        val_files = [f for f in val_files if (embed_path / f.name).exists()]
+        return train_files, val_files
+
+    return embed_path, split_state_files_filtered, extractor
 
 
 def _controller_and_files():

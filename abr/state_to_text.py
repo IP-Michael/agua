@@ -281,7 +281,8 @@ def save_state_descriptions() -> None:
     -----
     Parallelizes requests with a thread pool sized by ``N_QUERY_TOGETHER``.
     """
-    client = OpenAI()
+    import os
+    client = OpenAI(base_url=os.environ["OLLAMA_BASE_URL"], api_key="ollama")
     train_data, test_data = load_dataset(n_samples= MAX_NUM_STATES)
     states, actions, train_trace_indices = train_data
     pool = Pool(processes= N_QUERY_TOGETHER)

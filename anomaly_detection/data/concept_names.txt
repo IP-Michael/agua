@@ -1,0 +1,15 @@
+1. Stable Radio Channel
+2. Balanced Resource Utilization
+3. Healthy Compute Execution
+4. Clean Fronthaul Transport
+5. External RF Interference Signature
+6. Forced Modulation Downgrade
+7. Reactive Throughput Collapse
+8. Error Rate Spike Under Interference
+9. PDCP Processing Overload
+10. MAC Scheduler Delay Accumulation
+11. Thread Affinity Misconfiguration
+12. Platform-Radio Decoupling
+13. Fronthaul Link Saturation
+14. Fronthaul-Induced PHY Degradation
+15. eCPRI Frame Loss Pattern
