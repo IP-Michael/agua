@@ -139,8 +139,8 @@ PROMPT_FILE = SAVE_PATH / "prompt_skeleton.txt"
 CONTROLLER_PATH = SAVE_PATH / "anomaly_model.pt"
 SCALER_PATH = SAVE_PATH / "scaler.joblib"
 
-STATE_SAVE_PATH = SAVE_PATH / "states"
-TEST_STATE_SAVE_PATH = SAVE_PATH / "test_states"
+STATE_SAVE_PATH = SAVE_PATH / "states_normalized"
+TEST_STATE_SAVE_PATH = SAVE_PATH / "test_states_normalized"
 
 STATE_DESCRIPTION_SAVE_PATH = SAVE_PATH / "input_descriptions"
 CONCEPT_EMBEDDING_SAVE_PATH = SAVE_PATH / "concept_embeddings"

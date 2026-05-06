@@ -40,7 +40,7 @@ def load_embeddings(indices: List[int]) -> th.Tensor:
     """
     controller = AnomalyModel(
         window_size=10,
-        n_features=185,
+        n_features=GC.N_FEATURES,
         n_actions=GC.N_ACTIONS,
         policy_embedding_size=GC.POLICY_EMBEDDING_SIZE,
     )

@@ -37,7 +37,7 @@ def _embed_paths_and_extractor():
 
     controller = AnomalyModel(
         window_size=10,
-        n_features=185,
+        n_features=GC.N_FEATURES,
         n_actions=GC.N_ACTIONS,
         policy_embedding_size=GC.POLICY_EMBEDDING_SIZE,
     )
@@ -85,7 +85,7 @@ def _controller_and_files():
     """
     controller = AnomalyModel(
         window_size=10,
-        n_features=185,
+        n_features=GC.N_FEATURES,
         n_actions=GC.N_ACTIONS,
         policy_embedding_size=GC.POLICY_EMBEDDING_SIZE,
     )
